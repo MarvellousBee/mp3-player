@@ -88,7 +88,9 @@ id playlisty
 * `playback['shuffle']`:`bool`
 czy odtwarzać wymieszaną playlistę?
 * `playback['loop']`:`bool`
-czy zapętlić playlistę?
+0 = bez zapętlenia
+1 = zapętl całą playlistę
+2 = zapetl ten utwór
 * `playback['module']`:`str`
 aktualny plik funkcji
 * `playback['artist']`:`str`/`None`
