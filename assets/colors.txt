@@ -1,0 +1,4 @@
+Red: #B13139
+Blue: #3DAEE9
+
+Not parsed anywhere, just for reference.
