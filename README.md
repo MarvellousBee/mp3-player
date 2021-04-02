@@ -42,7 +42,7 @@ pod prawą listą:
 * `-` usuwa playlistę. Znika, Jeśli zaznaczona jest `Favorites`. Nie można usuwać tej playlisty.
 
 ### Jak działają funkcje?
-MPy3 przed włączeniem GUI __zawsze__ wykonuje funkcję `start_func()`, zaś przy zmiany utworu wykonuje `song_func()`.
+MPy3 przed włączeniem GUI __zawsze__ wykonuje funkcję `start_func()`, zaś przy zmianie utworu wykonuje `song_func()`.
 GUI nie włączy się przed ukończeniem `start_func()`. `song_func()` jest threadowane, więc nie zatrzymuje aplikacji.
 
 Wybieramy parę funkcji przez zaznaczenie jej z środkowej listy. Powoduje to restart aplikacji. 
