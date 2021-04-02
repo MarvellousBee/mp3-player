@@ -87,7 +87,7 @@ wszystkie ścieżki utworów aktualnej playlisty
 id playlisty
 * `playback['shuffle']`:`bool`
 czy odtwarzać wymieszaną playlistę?
-* `playback['loop']`:`bool`
+* `playback['loop']`:`int`
 0 = bez zapętlenia
 1 = zapętl całą playlistę
 2 = zapetl ten utwór
