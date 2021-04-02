@@ -7,6 +7,8 @@
 * pip3 install ultra_sockets
 * pip3 install PyQt5 
 * pip3 install eyed3
+discordpresence.py wymaga też:
+* pip3 install pypresence
 
 ### Co to jest i do czego służy?
 Odtwarzacz mp3. 
