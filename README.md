@@ -35,7 +35,9 @@ Pod lewą listą:
 * `+ File` dodaje 1 utwór do aktualnej playlisty
 * `+ Folder` dodaje wszystkie utwory z zaznaczonego folderu
 * `-` usuwa zaznaczony utwór. Znika, jesli nie ma utworów.
+
 pod prawą listą:
+
 * `+` dodaje playlistę
 * `-` usuwa playlistę. Znika, Jeśli zaznaczona jest `Favorites`. Nie można usuwać tej playlisty.
 
