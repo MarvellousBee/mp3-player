@@ -1,0 +1,12 @@
+69
+0
+0
+69
+0
+1
+0
+1
+1
+1
+C:/Users/Konrad/source/repos/active-dev/mp3-player-GH/przykladowa muzyka\Ivar's Revenge.mp3
+user_functions.empty
