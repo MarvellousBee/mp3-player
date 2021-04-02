@@ -57,7 +57,7 @@ Użytkownik w tych funkcjach ma dostęp do następujących wartości (Dzięki ma
 ### Dokumentacja `playback`
 
 Nie należny niczego tu zmieniać.
-Wszelki działania na aplikacji powinny być wykonywane za pomocą klasy `F`.
+Wszelkie działania na aplikacji powinny być wykonywane za pomocą klasy `F`.
 
 * `playback['path']`:`str`
 pełna ścieżka do utworu
