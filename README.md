@@ -32,12 +32,12 @@ __Jeśli klikniemy na liście utworów lub playlist__, niemal wszystkie guziory 
 `<3` pozwala na łatwiejsze dodawnie i usuwanie z `Favorites`
 
 Pod lewą listą:
-`+ File` dodaje 1 utwór do aktualnej playlisty
-`+ Folder` dodaje wszystkie utwory z zaznaczonego folderu
-`-` usuwa zaznaczony utwór. Znika, jesli nie ma utworów.
+* `+ File` dodaje 1 utwór do aktualnej playlisty
+* `+ Folder` dodaje wszystkie utwory z zaznaczonego folderu
+* `-` usuwa zaznaczony utwór. Znika, jesli nie ma utworów.
 pod prawą listą:
-`+` dodaje playlistę
-`-` usuwa playlistę. Znika, Jeśli zaznaczona jest `Favorites`. Nie można usuwać tej playlisty.
+* `+` dodaje playlistę
+* `-` usuwa playlistę. Znika, Jeśli zaznaczona jest `Favorites`. Nie można usuwać tej playlisty.
 
 ### Jak działają funkcje?
 MPy3 przed włączeniem GUI __zawsze__ wykonuje funkcję `start_func()`, zaś przy zmiany utworu wykonuje `song_func()`.
