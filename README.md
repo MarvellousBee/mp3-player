@@ -13,10 +13,11 @@ Odtwarzacz mp3.
 Jego dodatkową możliwością jest wykonywania funkcji napisanych przez użytkownika (W pythoniku oczywiście).
 
 ### Jak włączyć
-Po zainstalowaniy bibliotek i vlc należy uruchomić plik `main.py`.
-Pozostwaiłem kilka przykładowych utworów i funkcji.
+Po zainstalowaniu bibliotek i vlc należy uruchomić plik `main.py`.
+Pozostawiłem kilka przykładowych utworów i funkcji.
 
 Opcjonalnie można podać ścieżkę do utworu jako argument. Spowoduje to odtworzenie tego utworu zamiast ostatniej playlisty, np:
+
 `cd C:\mp3-player & python3 main.py "C:\przyklad.mp3"
 `
 ### Krótki poradnik użytkownika
