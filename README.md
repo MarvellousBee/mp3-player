@@ -51,8 +51,10 @@ Wszystkie pliki w folderze `user_functions` o zakończeniu .py się na niej znaj
 Napisałem kilka przykładów.
 
 Użytkownik w tych funkcjach ma dostęp do następujących wartości (Dzięki magii monkey patchingu nie trzeba ich importować):
-`playback` słownik zawierający informacje o stanie aplikacji
-`F` klasa z funkcjami, za pomocą których można manipulować aplikacją.
+
+* `playback` słownik zawierający informacje o stanie aplikacji
+
+* `F` klasa z funkcjami, za pomocą których można manipulować aplikacją.
 
 ### Dokumentacja `playback`
 
