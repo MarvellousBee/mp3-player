@@ -26,6 +26,7 @@ Trzy listy zawierają kolejno: utwory, pliki funkcji (więcej o tym w kolejnej s
 Searchbox pozwala na filtrowanie playlisty.
 
 opis przycisków nieoczywistych:
+
 __Jeśli klikniemy na liście utworów lub playlist__, niemal wszystkie guziory dostępne są również pod prawym przyciskiem myszy. 
 
 `<3` pozwala na łatwiejsze dodawnie i usuwanie z `Favorites`
