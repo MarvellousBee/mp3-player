@@ -53,13 +53,29 @@ GUI nie włączy się przed ukończeniem `start_func()`. `song_func()` jest thre
 Wybieramy parę funkcji przez zaznaczenie jej z środkowej listy. Powoduje to restart aplikacji. 
 Wszystkie pliki w folderze `user_functions` o zakończeniu .py się na niej znajdą.
 
-Napisałem kilka przykładów.
-
 Użytkownik w tych funkcjach ma dostęp do następujących wartości (Dzięki magii monkey patchingu nie trzeba ich importować):
 
 * `playback` słownik zawierający informacje o stanie aplikacji
 
 * `F` klasa z funkcjami, za pomocą których można manipulować aplikacją.
+
+
+
+Na przykład, może to wyglądać tak:
+
+```Python
+def start_func():
+    print("Witam użytkownika bardzo serdecznie")
+    print("dziś nadajemy na głośności", playback["volume"])
+    F.set_loop(0)
+    if playback["shuffle"]:
+        F.toggle_shuffle()
+def song_func():
+    if playback["id"]>=3:
+        print("Tylko trzy pierwsze utwory!")
+        F.set_song_by_id(0)
+
+```
 
 ### Dokumentacja `playback`
 
@@ -149,5 +165,3 @@ Eksperymentalna funkcja, testowana tylko w `start_func()`.
 Otwiera port (domyślnie 5556) z podanego ip (domyślnie ip urządzenia) i nasłuchuje.
 Gdy port jest otwarty, można podłączyć się do niego z innej aplikacji. Działa przez Wi-Fi.
 plik `przykładowy_komunikator.py` zawiera niezbędne funkcje do wysyłania komend z innej aplikacji oraz instrukcje.
-
-
