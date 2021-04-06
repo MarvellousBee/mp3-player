@@ -183,6 +183,19 @@ def set_song(path, empty=False, first=False):
     for i in ui.TracksList.actions():
         ui.TracksList.removeAction(i)
 
+    if empty:
+        ui.DelFile.hide()
+        ui.TrackLabel.setText(" ")
+        media = vlc.Media(path_to_empty_mp3)
+        p.set_media(media)
+        ui.pause()
+        playback["path"] = None
+        playback["full_track"] =  None
+        playback["track"] = None
+        playback["is_playing"] = False
+        get_time(empty=True)
+        get_length(empty=True)
+
     TracksList_menu = {
 
     "CTX_Add_a_song" : QAction("Add a song ...", ui),
@@ -221,22 +234,9 @@ def set_song(path, empty=False, first=False):
     TracksList_menu["CTX_Delete_from_playlist"].triggered.connect(ui.delete_song)
     TracksList_menu["CTX_Show_directory"].triggered.connect(ui.show_song_path)
 
-
     if empty:
-        ui.DelFile.hide()
-        ui.TrackLabel.setText(" ")
-        media = vlc.Media(path_to_empty_mp3)
-        p.set_media(media)
-        ui.pause()
-        playback["path"] = None
-        playback["full_track"] =  None
-        playback["track"] = None
-        playback["is_playing"] = False
-        get_time(empty=True)
-        get_length(empty=True)
         return
     ui.DelFile.show()
-
     media = vlc.Media(path)
     p.set_media(media)
     ui.play()
@@ -390,17 +390,24 @@ def set_playlist(pl_id, first=False, empty=False, change_song = True):
         Playlists_menu["CTX_Delete_playlist"].triggered.connect(ui.delete_playlist)
 
 
-    playlist, shuffled_playlist, playlist_names_only, shuffled_playlist_names_only = ([],[],[],[])
-
+    #Actually empty
+    if not all_playlists[pl_id]["Tracks"]:
+        ui.DelFile.hide()
+        ui.art.setPixmap(QPixmap("assets/no_art.png"))
+    #Pretend its empty
     if empty:
         ui.DelPlaylist.hide()
+        ui.art.setPixmap(QPixmap("assets/no_art.png"))
         playback["is_playing"] = False
         playback["id"] = None
-        playback["playlist"] = None
-        playback["playlist_id"] = None
+        playback["playlist"] = []
+        #playback["playlist_id"] = 0
+        playback["playlist_id"] = pl_id
         gui.playlist, gui.shuffled_playlist, gui.playlist_names_only, gui.shuffled_playlist_names_only = playlist, shuffled_playlist, playlist_names_only, shuffled_playlist_names_only
         set_song(None, empty=True)
         return
+
+    playlist, shuffled_playlist, playlist_names_only, shuffled_playlist_names_only = ([],[],[],[])
 
     playlist = all_playlists[pl_id]["Tracks"]
 
@@ -506,7 +513,7 @@ def threaded_shuffle_change():
     time.sleep(0.0001)
     ui.shuffle_button()
 
-def threaded_loop_change(what=False):
+def threaded_loop_change(what="weird_bug"):
     time.sleep(0.0001)
     ui.loop_button(what)
 

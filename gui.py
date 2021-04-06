@@ -12,7 +12,7 @@ import json
 
 from threading import Thread
 
-from utility_functions import strip_path
+from utility_functions import strip_path, mins
 
 #read user data
 with open("data/settings.txt", encoding="utf-8") as settings:
@@ -106,8 +106,47 @@ def autosave():
         time.sleep(x)
 
 
+def pPTRV(self, pos):#pixelPosToRangeValue
+    opt = QtWidgets.QStyleOptionSlider()
+    self.initStyleOption(opt)
+    gr = self.style().subControlRect(QtWidgets.QStyle.CC_Slider, opt, QtWidgets.QStyle.SC_SliderGroove, self)
+    sr = self.style().subControlRect(QtWidgets.QStyle.CC_Slider, opt, QtWidgets.QStyle.SC_SliderHandle, self)
+
+    if self.orientation() == QtCore.Qt.Horizontal:
+        sliderLength = sr.width()
+        sliderMin = gr.x()
+        sliderMax = gr.right() - sliderLength + 1
+    else:
+        sliderLength = sr.height()
+        sliderMin = gr.y()
+        sliderMax = gr.bottom() - sliderLength + 1;
+    pr = pos - sr.center() + sr.topLeft()
+    p = pr.x() if self.orientation() == QtCore.Qt.Horizontal else pr.y()
+    return QtWidgets.QStyle.sliderValueFromPosition(self.minimum(), self.maximum(), p - sliderMin,
+                                           sliderMax - sliderMin, opt.upsideDown)
 
 class Ui_MainWindow(QWidget):
+    #Clickable sliders
+    class Slider(QtWidgets.QSlider):
+        pixelPosToRangeValue = pPTRV
+        def mousePressEvent(self, event):
+            Ui_MainWindow.TS_start(self)
+            super().mousePressEvent(event)
+            if event.button() == QtCore.Qt.LeftButton:
+                val = self.pixelPosToRangeValue(event.pos())
+                self.setValue(val)
+            Ui_MainWindow.TS_stop(self)
+
+
+    class VolumeSlider(QtWidgets.QSlider):
+        pixelPosToRangeValue = pPTRV
+        def mousePressEvent(self, event):
+            super().mousePressEvent(event)
+            if event.button() == QtCore.Qt.LeftButton:
+                val = self.pixelPosToRangeValue(event.pos())
+                self.setValue(val)
+
+
 
     def __init__(self):
         super().__init__()
@@ -182,14 +221,19 @@ class Ui_MainWindow(QWidget):
         global playback
         playback["volume"]=int(vol)
         playback["Pending_changes"].append("volume")
+        time.sleep(.01)
 
 
     #Only change time when the slider is released
     def TS_start(self):
         self.timeslider_used=True
 
+
     def TS_stop(self):
-        curr_time = int(self.TimeSlider.sliderPosition())
+        try:
+            curr_time = int(self.TimeSlider.sliderPosition())
+        except AttributeError:
+            curr_time = int(self.sliderPosition())
         p.set_time(curr_time*1000)
         playback["time"]=curr_time
         playback["Pending_changes"].append("time")
@@ -217,6 +261,7 @@ class Ui_MainWindow(QWidget):
             p.audio_set_volume(playback["volume"])
         self.PlayButton.setText("||")
         playback["is_playing"] = True
+
 
     #mutes volume over num_of_reps*0.001 seconds.
     #This alorithm is so complicated because it allows the user to violently mash the playbutton during a single execution of slow_pause()
@@ -269,8 +314,9 @@ class Ui_MainWindow(QWidget):
         #if out of range
         if playback["id"]+direction>=len(playback["playlist"]):
             if playback["loop"]==0:
+                self.next_track(0)
                 self.pause()
-                p.set_time(0)
+                return
 
                 if playback["is_playing"]:
                     playback["is_playing"] = False
@@ -466,7 +512,8 @@ class Ui_MainWindow(QWidget):
 
 
         if all_playlists:
-            set_playlist(0)
+            set_playlist(playback["playlist_id"]-1)
+
         else:
             set_playlist(0, empty=True)
             add_songs_to_list()
@@ -515,16 +562,22 @@ class Ui_MainWindow(QWidget):
             playback["id"]=shuffled_playlist.index(file)
         else:
             playback["id"]=playback["playlist"].index(file)
-
-
         if final:
             self.TracksList.blockSignals(False)
             set_song(file)
-            self.pause()
-            time.sleep(0.5)
             self.play()
+            self.get_length()
 
+    def get_length(self, empty=False):
+        global p
+        if p.get_length()/1000<=0:
+            time.sleep(0.05)
+        playback["length"] = int(p.get_length()/1000)
+        playback["length_mins"] = mins(int(p.get_length()/1000))
+        self.TimeSlider.setMaximum(playback["length"])
+        self.LengthLabel.setText(playback["length_mins"])
 
+        return p.get_length()/1000
 
     def add_song_by_folder(self):
         path = QFileDialog.getExistingDirectory(None,"Select directory")
@@ -536,9 +589,8 @@ class Ui_MainWindow(QWidget):
 
         self.TracksList.blockSignals(False)
         set_song(file)
-        self.pause()
-        time.sleep(0.5)
         self.play()
+        self.get_length()
 
     def delete_song(self, index):
         self.TracksList.blockSignals(True)
@@ -556,6 +608,8 @@ class Ui_MainWindow(QWidget):
         playback["Pending_changes"].append("new_playlist")
         self.TracksList.blockSignals(False)
         self.SearchBox_trigger(self.SearchBox.text())
+        if not all_playlists[playback["playlist_id"]]["Tracks"]:
+            set_playlist(playback["playlist_id"], empty=True)
 
     def partially_refresh_gui(): # Only elements that tend to hang behind on inactivity.
         self.CurrentTime.repaint()
@@ -725,7 +779,7 @@ class Ui_MainWindow(QWidget):
         self.FavButton.clicked.connect(self.toggle_faves)
         self.FavButton.installEventFilter(self)
 
-        self.TimeSlider = QtWidgets.QSlider(self.centralwidget)
+        self.TimeSlider = self.Slider(self.centralwidget)
         self.TimeSlider.setGeometry(QtCore.QRect(250, 536, 500, 32))
         self.TimeSlider.setOrientation(QtCore.Qt.Horizontal)
         self.TimeSlider.setObjectName("TimeSlider")
@@ -754,7 +808,7 @@ class Ui_MainWindow(QWidget):
         self.MuteButton.installEventFilter(self)
 
 
-        self.VolumeSlider = QtWidgets.QSlider(self.centralwidget)
+        self.VolumeSlider = self.VolumeSlider(self.centralwidget)
         self.VolumeSlider.setGeometry(QtCore.QRect(700, 506, 141, 22))
         self.VolumeSlider.setOrientation(QtCore.Qt.Horizontal)
         self.VolumeSlider.setObjectName("VolumeSlider")
@@ -800,7 +854,7 @@ class Ui_MainWindow(QWidget):
         self.LoopButton = QtWidgets.QPushButton(self.centralwidget)
         self.LoopButton.setGeometry(QtCore.QRect(600, 450, 41, 41 ))
         self.LoopButton.setObjectName("LoopButton")
-        self.LoopButton.clicked.connect(self.loop_button)
+        self.LoopButton.clicked.connect(lambda: self.loop_button(custom="weird_bug"))
         self.LoopButton.setStyleSheet("border: none;"
         "background-image : url(assets/loop.png);")
         self.LoopButton.installEventFilter(self)
