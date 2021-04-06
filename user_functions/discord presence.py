@@ -1,5 +1,7 @@
 #Pozwala na wyświetlanie rich presence MP3 na profilu discorda
 #pip install pypresence
+#[Winerror 5] Odmowa dostępu jest powodowany windowsem, należy odpalić cmd jako administrator 
+
 import pypresence
 import time
 from threading import Thread
