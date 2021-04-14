@@ -636,7 +636,12 @@ class Ui_MainWindow(QWidget):
             print("[ERROR] Path not found")
 
     def track_in_faves(self, path):
-        return path in all_playlists[0]["Tracks"]
+        szuk = strip_path(path)
+        for i in all_playlists[0]["Tracks"]:
+            if strip_path(i)==szuk:
+                return True
+        return False
+        #return path in all_playlists[0]["Tracks"]
 
     def toggle_faves(self):
         if not playback['playlist']:
