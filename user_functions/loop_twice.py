@@ -1,4 +1,4 @@
-#playlista jest zapętlona tylko dwukrotnie
+#playlist is looped twice
 import time
 poprzednik = None
 def start_func():

@@ -1,5 +1,5 @@
-#Ta wersja automatycznie zapisuje w pliku tracks.json ostatnią głośność
-#więc możemy zapisywać głośności bezpośrednio w playerze, a nie grzebiąc w plikach.
+#This version automatically adjusts volume in tracks.json when changed in the GUI
+#Means not having to mess with files to set custom volumes
 
 
 import json

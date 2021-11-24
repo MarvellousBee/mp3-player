@@ -1,4 +1,4 @@
-#Ustawia głośność wg słownika w tracks.json 
+#Sets volume according to tracks.json 
 import json
 dict = None
 
