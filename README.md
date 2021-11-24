@@ -1,167 +1,144 @@
 # MPy3
-(nazwa kradziona ale martwa od 2013)
-### Użyte technologie:
+### Installation
 
-* pip3 install python-vlc (Potrzebny też jest [libvlc](https://www.videolan.org/vlc/libvlc.html) __LUB__ [vlc](https://www.videolan.org/vlc/index.pl.html))
+* pip3 install python-vlc (Also needed [libvlc](https://www.videolan.org/vlc/libvlc.html) __OR__ [vlc](https://www.videolan.org/vlc/index.pl.html))
 * pip3 install filelock
 * pip3 install ultra_sockets
-* pip3 install PyQt5 
+* pip3 install PyQt5
 * pip3 install eyed3
 
-discordpresence.py wymaga też:
+### Overwiew
+![](Media/overwiew.png)  
 
-* pip3 install pypresence
+It's an MP3 player.
+You can also write custom Python functions to interact with it (pause/play, change vokume, track, playlist, toggle shuffling, etc) and extract data (check which song/playlist is currently playing, its volume, artist, etc)
 
-### Co to jest i do czego służy?
-Odtwarzacz mp3. 
-Jego dodatkową możliwością jest wykonywania funkcji napisanych przez użytkownika (W pythoniku oczywiście).
+### Usage
 
-### Jak włączyć
-Po zainstalowaniu bibliotek i vlc należy uruchomić plik `main.py`.
-Pozostawiłem kilka przykładowych utworów i funkcji.
+Run `main.py` to start the app.
 
-Opcjonalnie można podać ścieżkę do utworu jako argument. Spowoduje to odtworzenie tego utworu zamiast ostatniej playlisty, np:
-
+Optionally, you may pass a path as an argument to play that song.
 `cd C:\mp3-player & python3 main.py "C:\przyklad.mp3"
 `
-### Krótki poradnik użytkownika
-Klikając w drugą ikonkę w lewym górnym rogu można zmienić tryb na jasny/ciemny.
+### User guide
+You may toggle dark/light mode by clicking the top left corner icon (sun/moon, not MPy3 logo).
 
-Trzy listy zawierają kolejno: utwory, pliki funkcji (więcej o tym w kolejnej sekcji), playlisty.
-Searchbox pozwala na filtrowanie playlisty.
+The three main lists contain:
+* songs in current playlist
+* Function files (more about that later)
+* playlists
 
-opis przycisków nieoczywistych:
+`<3` allows easier adding and removing from `Favorites`
 
-__Jeśli klikniemy na liście utworów lub playlist__, niemal wszystkie guziory dostępne są również pod prawym przyciskiem myszy. 
+Buttons:
+`+ File` adds 1 song to your current playlist
+`+ Folder` adds all songs from selected folder
+(under left list) `-` deletes current song
 
-`<3` pozwala na łatwiejsze dodawnie i usuwanie z `Favorites`
+`+` Adds a playlist
+(under left list) `-` deletes a playlist.
 
-Pod lewą listą:
-* `+ File` dodaje 1 utwór do aktualnej playlisty
-* `+ Folder` dodaje wszystkie utwory z zaznaczonego folderu
-* `-` usuwa zaznaczony utwór. Znika, jesli nie ma utworów.
+### Custom functions
+in the `user_functions` folder, users may add their custom Python scripts.
+To select a script, open MPy3 and click on it. It will restart to import functions `start_func()` and `song_func()`.
 
-pod prawą listą:
+Mpy3 will __always__ execute `start_func()` before showing the GUI, `song_func()` is executed every time a song begins.
 
-* `+` dodaje playlistę
-* `-` usuwa playlistę. Znika, Jeśli zaznaczona jest `Favorites`. Nie można usuwać tej playlisty.
+`start_func()`
+* executed before showing the GUI
+* MPy3 will not proceed until it ends
 
-### Jak działają funkcje?
-MPy3 przed włączeniem GUI __zawsze__ wykonuje funkcję `start_func()`, zaś przy zmianie utworu wykonuje `song_func()`.
-GUI nie włączy się przed ukończeniem `start_func()`. `song_func()` jest threadowane, więc nie zatrzymuje aplikacji.
+`song_func()`
+* executed every time a song begins.
+* Threaded - does not stop songs from playing (you may use 'P.pause()' to stop it)
 
-Wybieramy parę funkcji przez zaznaczenie jej z środkowej listy. Powoduje to restart aplikacji. 
-Wszystkie pliki w folderze `user_functions` o zakończeniu .py się na niej znajdą.
-
-Użytkownik w tych funkcjach ma dostęp do następujących wartości (Dzięki magii monkey patchingu nie trzeba ich importować):
-
-* `playback` słownik zawierający informacje o stanie aplikacji
-
-* `F` klasa z funkcjami, za pomocą których można manipulować aplikacją.
-
+There are a few examples included inside this repository.
 
 
-Na przykład, może to wyglądać tak:
+To interact with MPy3 `playback` and `F` in your scripts.
+Out of curiosity and wanting to learn, I skipped readability best practices and monkey patched these functions. There's no need to import them in any way.
 
-```Python
-def start_func():
-    print("Witam użytkownika bardzo serdecznie")
-    print("dziś nadajemy na głośności", playback["volume"])
-    F.set_loop(0)
-    if playback["shuffle"]:
-        F.toggle_shuffle()
-def song_func():
-    if playback["id"]>=3:
-        print("Tylko trzy pierwsze utwory!")
-        F.set_song_by_id(0)
+* `playback` - `dict` - contains internal variables, such as volume or song name.
+* `F` - `class` - contains function that can be used to manipulate MPy3, such as `set_song_by...()` or `set_volume()`
 
-```
+### `playback` Documentation
 
-### Dokumentacja `playback`
 
-Nie należny niczego tu zmieniać.
-Wszelkie działania na aplikacji powinny być wykonywane za pomocą klasy `F`.
+__IMPORTRANT:__ Always use `F` to change any of these variables! It ensures everything goes smoothly.
 
 * `playback['path']`:`str`
-pełna ścieżka do utworu
+Full song path
 * `playback['full_track']`:`str`
-nazwa pliku utworu
+Full track name
 * `playback['track']`: `str`
-nazwa utworu
+Track name
 * `playback['is_playing']`:`bool`
-Czy aktualnie utwór jest grany
+Is current song playing (is not paused)?
 * `playback['time']`:`int`
-Jaka część utworu mineła
+how much of song's time has passed
 * `playback['length']`:`int`
-Jaka jest długość utworu
+Song's length
 * `playback['length_mins']`:`str`
-Jaka część utworu mineła (w minutach)
+how much of song's time has passed (in the `00:00` format)
 * `playback['time_mins']`:`str`
-Jaka jest długość utworu (w minutach)
+Song's length (in the `00:00` format)
 * `playback['volume']`:`int`
-Aktualna głośność
+Song's current volume
 * `playback['hidden_volume']`:`int`
-Aktualna głośność, ale niezależna od wyciszenia.
-głośność powraca do tej wartości po wyłączeniu wyciszenia
+Song's current volume, but independent of muting.
+when Mpy3 is unmuted, "actual" volume will return to this value.
 * `playback['id']`:`int`
-id utworu w playliście
+Song's id in the current playlist
 * `playback['playlist']`:`list`
-wszystkie ścieżki utworów aktualnej playlisty
+all paths to current playlist's songs
 * `playback['shuffled_playlist']`:`list`
-`playback['playlist']`, ale pomieszany. Używany, gdy użytkownik wybierze mieszanie playlisty.
+`playback['playlist']`, but shuffled. Used when shuffling is enabled.
 * `playback['playlist_id']`:`int`
-id playlisty
+playlist id
 * `playback['shuffle']`:`bool`
-czy odtwarzać wymieszaną playlistę?
-* `playback['loop']`:`int`
-0 = bez zapętlenia
-1 = zapętl całą playlistę
-2 = zapetl ten utwór
+Is shuffling enabled?
+* `playback['loop']`:`bool`
+Is looping enabled?
 * `playback['module']`:`str`
-aktualny plik funkcji
+Currently used `user_functions` file
 * `playback['artist']`:`str`/`None`
-twórca utworu
+Song's author
 * `playback['image']`:`str`/`None`
-ścieżka do obrazka, jeśli  obrazek istnieje.
-(aplikcja zapisuje ostatni cover art w `assets`)
+path to current cover art, if it exists.
 * `playback['in_favorites']`:`bool`
-Czy utwór jest w ulubionych?
+Is this song marekd as "Favorite"?
 * `playback['dark_mode']`:`int`
-Czy tryb ciemny jest włączony? 
-* `playback['Pending_changes']`:`list`
-Nieważna dla użytkownika
+Is dark mode enabled?
 
-### Dokumantacja `F`
+### `F` Documentation
 
 * `F.set_song_by_id(id)`
-Odtwórz utwór z playlisty podanym id
+From current playlist, play a song with this id
 * `F.set_song_by_path(path)`
-Odtwórz utwór z playlisty z podanej ścieżki
+From current playlist, play a song with this path
 * `F.set_song_by_name(name)`
-Odtwórz utwór z playlisty z podanym tytułem
+From current playlist, play a song with this name
 * `F.set_volume(volume)`
-ustaw głośność
+Set current volume.
 * `F.play()`
-Odtwarzaj
+Play
 * `F.pause()`
-Pauza
+Pause
 * `F.set_time(seconds)`
-ustaw czas utworu w sekundach
-wartości `float` mogą nie działać.
+Jump to specified time in the song.
+Must be an `int`, not `float`.
 * `F.change_playlist(id)`
-ustaw playlistę wg id
+Set current playlist
 * `f.toggle_shuffle()`
-włącz/wyłącz mieszanie playlisty
-* `f.toggle_loop()`
-bez zapętlenia/zapętl całą playlistę/ zapetl cały utwór
-* `f.set_loop(what)`
-0 = bez zapętlenia
-1 = zapętl całą playlistę
-2 = zapetl ten utwór
+Toggle shuffling songs
+* `f.set_loop(number)`
+0 = no looping
+1 = start from the beginning once the playlist os over
+2 = listen to only this song
 * `F.change_module(module)`
-wybierz plik funkcji
+set user function
 * `F.listener(ip, port)`
-Eksperymentalna funkcja, testowana tylko w `start_func()`.
-Otwiera port (domyślnie 5556) z podanego ip (domyślnie ip urządzenia) i nasłuchuje.
-Gdy port jest otwarty, można podłączyć się do niego z innej aplikacji. Działa przez Wi-Fi.
-plik `przykładowy_komunikator.py` zawiera niezbędne funkcje do wysyłania komend z innej aplikacji oraz instrukcje.
+__EXPERIMENTAL FUNCTION__, tested only in `start_func()`
+opens a port(5556 by default) from specified ip (your device's local IP by default) and listens.
+When the port is open, you can connect to it locally from a different application.
+files `example_communicator.py` and `sender.py` contain necessary functions and instructions.
