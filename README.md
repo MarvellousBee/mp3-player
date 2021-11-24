@@ -7,35 +7,35 @@
 * pip3 install PyQt5
 * pip3 install eyed3
 
-### Overwiew
+### Overview
 ![](Media/overwiew.png)  
 
-It's an MP3 player.
-You can also write custom Python functions to interact with it (pause/play, change vokume, track, playlist, toggle shuffling, etc) and extract data (check which song/playlist is currently playing, its volume, artist, etc)
+This is a MP3 player.
+You can also write custom Python functions to interact with it (pause/play, change volume, track, playlist, toggle shuffling, etc) and extract data (check which song/playlist is currently playing, the volume, artist, etc)
 
 ### Usage
 
 Run `main.py` to start the app.
 
 Optionally, you may pass a path as an argument to play that song.
-`cd C:\mp3-player & python3 main.py "C:\przyklad.mp3"
+`cd C:\mp3-player & python3 main.py "C:\example.mp3"
 `
 ### User guide
 You may toggle dark/light mode by clicking the top left corner icon (sun/moon, not MPy3 logo).
 
 The three main lists contain:
-* songs in current playlist
+* Songs in current playlist
 * Function files (more about that later)
-* playlists
+* Playlists
 
-`<3` allows easier adding and removing from `Favorites`
+* `<3` allows easier adding and removing from `Favorites`
 
 Buttons:
-`+ File` adds 1 song to your current playlist
-`+ Folder` adds all songs from selected folder
+* `+ File` adds 1 song to your current playlist
+* `+ Folder` adds all songs from selected folder
 (under left list) `-` deletes current song
 
-`+` Adds a playlist
+* `+` Adds a playlist
 (under left list) `-` deletes a playlist.
 
 ### Custom functions
