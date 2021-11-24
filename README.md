@@ -21,7 +21,7 @@ Optionally, you may pass a path as an argument to play that song.
 `cd C:\mp3-player & python3 main.py "C:\example.mp3"
 `
 ### User guide
-You may toggle dark/light mode by clicking the top left corner icon (sun/moon, not MPy3 logo).
+You may toggle dark/light mode by clicking the top left corner icon (sun/moon, not the MPy3 logo).
 
 The three main lists contain:
 * Songs in current playlist
@@ -40,17 +40,15 @@ Buttons:
 
 ### Custom functions
 in the `user_functions` folder, users may add their custom Python scripts.
-To select a script, open MPy3 and click on it. It will restart to import functions `start_func()` and `song_func()`.
-
-Mpy3 will __always__ execute `start_func()` before showing the GUI, `song_func()` is executed every time a song begins.
+To select a script, open MPy3 and click on it. It will restart to import the functions `start_func()` and `song_func()`.
 
 `start_func()`
-* executed before showing the GUI
+* Executed before showing the GUI
 * MPy3 will not proceed until it ends
 
 `song_func()`
-* executed every time a song begins.
-* Threaded - does not stop songs from playing (you may use 'P.pause()' to stop it)
+* Executed every time a song begins
+* Threaded - does not stop songs from playing (you may use 'P.pause()' to stop)
 
 There are a few examples included inside this repository.
 
@@ -75,7 +73,7 @@ Track name
 * `playback['is_playing']`:`bool`
 Is current song playing (is not paused)?
 * `playback['time']`:`int`
-how much of song's time has passed
+How much of song's time has passed
 * `playback['length']`:`int`
 Song's length
 * `playback['length_mins']`:`str`
@@ -90,11 +88,11 @@ when Mpy3 is unmuted, "actual" volume will return to this value.
 * `playback['id']`:`int`
 Song's id in the current playlist
 * `playback['playlist']`:`list`
-all paths to current playlist's songs
+All paths to current playlist's songs
 * `playback['shuffled_playlist']`:`list`
-`playback['playlist']`, but shuffled. Used when shuffling is enabled.
+`playback['playlist']`, shuffled. Used when shuffling is enabled.
 * `playback['playlist_id']`:`int`
-playlist id
+Playlist id
 * `playback['shuffle']`:`bool`
 Is shuffling enabled?
 * `playback['loop']`:`bool`
@@ -104,9 +102,9 @@ Currently used `user_functions` file
 * `playback['artist']`:`str`/`None`
 Song's author
 * `playback['image']`:`str`/`None`
-path to current cover art, if it exists.
+Path to current cover art, if it exists.
 * `playback['in_favorites']`:`bool`
-Is this song marekd as "Favorite"?
+Is this song marked as "favorite"?
 * `playback['dark_mode']`:`int`
 Is dark mode enabled?
 
@@ -133,12 +131,12 @@ Set current playlist
 Toggle shuffling songs
 * `f.set_loop(number)`
 0 = no looping
-1 = start from the beginning once the playlist os over
+1 = start from the beginning once the playlist is over
 2 = listen to only this song
 * `F.change_module(module)`
-set user function
+Set user function
 * `F.listener(ip, port)`
 __EXPERIMENTAL FUNCTION__, tested only in `start_func()`
 opens a port(5556 by default) from specified ip (your device's local IP by default) and listens.
 When the port is open, you can connect to it locally from a different application.
-files `example_communicator.py` and `sender.py` contain necessary functions and instructions.
+Files `example_communicator.py` and `sender.py` contain necessary functions and instructions.
