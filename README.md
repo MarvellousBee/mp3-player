@@ -1,6 +1,8 @@
 # MPy3
 ### Installation
 
+Works on Windows 10. Not tested on Linux/Mac.
+
 * pip3 install python-vlc (Also needed [libvlc](https://www.videolan.org/vlc/libvlc.html) __OR__ [vlc](https://www.videolan.org/vlc/index.pl.html))
 * pip3 install filelock
 * pip3 install ultra_sockets
