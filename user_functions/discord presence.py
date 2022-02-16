@@ -10,8 +10,8 @@ RPC = None
 
 def start_func():
     global RPC
-    #usunąć zanim repo stanie się publiczne
-    client_id = "826535732218691595"
+    #fill with your id
+    client_id = ""
 
     RPC = pypresence.Presence(client_id)
     RPC.connect()
