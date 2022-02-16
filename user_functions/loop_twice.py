@@ -1,14 +1,14 @@
 #playlist is looped twice
 import time
-poprzednik = None
+prev = None
 def start_func():
     F.listener()
-    global poprzednik
-    poprzednik = playback["id"]
+    global prev
+    prev = playback["id"]
     if playback["loop"]!=1:
         F.set_loop(1)
 def song_func():
-    global poprzednik
-    if playback["id"]<poprzednik:
+    global prev
+    if playback["id"]<prev:
         F.set_loop(0)
-    poprzednik = playback["id"]
+    prev = playback["id"]
