@@ -49,7 +49,7 @@ To select a script, open MPy3 and click on it. It will restart to import the fun
 
 `song_func()`
 * Executed every time a song begins
-* Threaded - does not stop songs from playing (you may use 'P.pause()' to stop)
+* Threaded - does not stop songs from playing (you may use `P.pause()` to stop)
 
 There are a few examples included inside this repository.
 
