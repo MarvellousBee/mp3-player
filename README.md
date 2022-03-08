@@ -20,7 +20,8 @@ You can also write custom Python functions to interact with it (pause/play, chan
 Run `main.py` to start the app.
 
 Optionally, you may pass a path as an argument to play that song.
-`cd C:\mp3-player & python3 main.py "C:\example.mp3"
+For example:
+`python3 main.py "C:\example.mp3"
 `
 ### User guide
 You may toggle dark/light mode by clicking the top left corner icon (sun/moon, not the MPy3 logo).
