@@ -29,10 +29,8 @@ The three main lists contain:
 * Songs in current playlist
 * Function files (more about that later)
 * Playlists
-
-* `<3` allows easier adding and removing from `Favorites`
-
 Buttons:
+* `<3` allows easier adding and removing from `Favorites`
 * `+ File` adds 1 song to your current playlist
 * `+ Folder` adds all songs from selected folder
 (under left list) `-` deletes current song
