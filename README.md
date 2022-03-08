@@ -41,7 +41,7 @@ Buttons:
 
 ### Custom functions
 in the `user_functions` folder, users may add their custom Python scripts.
-To select a script, open MPy3 and click on it. It will restart to import the functions `start_func()` and `song_func()`.
+To select a script, open MPy3 and click on it. It will restart to import `start_func()` and `song_func()`.
 
 `start_func()`
 * Executed before showing the GUI
