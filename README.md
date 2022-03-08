@@ -59,7 +59,7 @@ To interact with MPy3 `playback` and `F` in your scripts.
 Out of curiosity and wanting to learn, I skipped readability best practices and monkey patched these functions. There's no need to import them in any way.
 
 * `playback` - `dict` - contains internal variables, such as volume or song name.
-* `F` - `class` - contains function that can be used to manipulate MPy3, such as `set_song_by...()` or `set_volume()`
+* `F` - `class` - contains functions that can be used to manipulate MPy3, such as `set_song_by...()` or `set_volume()`
 
 ### `playback` Documentation
 
