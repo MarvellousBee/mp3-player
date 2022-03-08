@@ -1,4 +1,10 @@
 # MPy3
+### Overview
+![](Media/overwiew.png)  
+
+This is a MP3 player.
+You can also write custom Python functions to interact with it (pause/play, change volume, track, playlist, toggle shuffling, etc) and extract data (check which song/playlist is currently playing, the volume, artist, etc)
+
 ### Installation
 
 Works on Windows 10. Not tested on Linux/Mac.
@@ -8,12 +14,6 @@ Works on Windows 10. Not tested on Linux/Mac.
 * pip3 install ultra_sockets
 * pip3 install PyQt5
 * pip3 install eyed3
-
-### Overview
-![](Media/overwiew.png)  
-
-This is a MP3 player.
-You can also write custom Python functions to interact with it (pause/play, change volume, track, playlist, toggle shuffling, etc) and extract data (check which song/playlist is currently playing, the volume, artist, etc)
 
 ### Usage
 
