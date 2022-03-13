@@ -53,7 +53,7 @@ To select a script, open MPy3 and click on it. It will restart to import `start_
 There are a few examples included inside this repository.
 
 
-To interact with MPy3 `playback` and `F` in your scripts.
+To interact with MPy3, use `playback` and `F` in your scripts.
 Out of curiosity and wanting to learn, I skipped readability best practices and monkey patched these functions. There's no need to import them in any way.
 
 * `playback` - `dict` - contains internal variables, such as volume or song name.
