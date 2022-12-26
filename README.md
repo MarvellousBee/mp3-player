@@ -6,13 +6,13 @@ You can also write custom Python functions to interact with it (pause/play, chan
 
 ### Installation
 
-Works on Windows 10. Not tested on Linux/Mac.
+Clone this repository and install the following libraries via [pip](https://pip.pypa.io/en/stable/installation/):
 
-* pip3 install python-vlc (Also needed [libvlc](https://www.videolan.org/vlc/libvlc.html) __OR__ [vlc](https://www.videolan.org/vlc/index.pl.html))
-* pip3 install filelock
-* pip3 install ultra_sockets
-* pip3 install PyQt5
-* pip3 install eyed3
+* python-vlc (You will also need [libvlc](https://www.videolan.org/vlc/libvlc.html) __OR__ [vlc](https://www.videolan.org/vlc/index.pl.html))
+* filelock
+* ultra_sockets
+* PyQt5
+* eyed3
 
 ### Usage
 
@@ -20,7 +20,7 @@ Run `main.py` to start the app.
 
 Optionally, you may pass a path as an argument to play that song.
 For example:
-`python3 main.py "C:\example.mp3"
+`python main.py "C:\example.mp3"
 `
 ### User guide
 You may toggle dark/light mode by clicking the top left corner icon (sun/moon, not the MPy3 logo).
